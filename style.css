@@ -1,0 +1,12 @@
+:root {
+    --backgroundColorMain: #7E846B;
+    --backgroundColorCard: #F0F8F4;
+    --textColorDark: #100D04;
+    --textColorLight: #D0DDD7;
+    --lightAccentColor: #A5AE9E;
+
+}
+
+body {
+    background-color: var(--backgroundColorMain);
+}
