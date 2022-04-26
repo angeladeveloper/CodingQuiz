@@ -1,5 +1,7 @@
 const startBtn = document.getElementById("startBtn")
 const questionElement =document.getElementById('questionEle');
+const answerElement = document.getElementById('answerBtns');
+let userScores = 0;
 
 startBtn.addEventListener('click', startGame);
 
@@ -13,21 +15,48 @@ function startGame() {
     shuffledQuestions  = questionArray.sort(() => Math.random() - .5);
     console.log('Shuffled questions;', shuffledQuestions);//shuffle the questions.   
     currentIndex = 0;// start at the first question
-    showQuestion();
+    showQuestion(shuffledQuestions[currentIndex]);
 }
 
 function showQuestion(question) {
 //I need to hide the start button
     startBtn.classList.add('hide');
 //I need to show the questions. 
-    // questionElement.innerText = question.question; 
+    questionElement.innerText = question.question; 
+    // let currentAnswers = Array.from(answerBtns);
+    question.answers.forEach(answer => { // creating a button for each answer
+        console.log('All answers' , answer);
+        const ansBtn = document.createElement('button');
+        ansBtn.innerText = answer.text// changed text of button 
 
-//I need to know what questions are right. 
+    //I need to know what questions are right. 
+        if(answer.correct){ // if the answer for the current looping question is true, add the correct data attribute. 
+            console.log('Correct answer', answer.text);
+            ansBtn.dataset.correct = answer.text;           
+        }
+        ansBtn.addEventListener('click', selectAnswer)
+        answerElement.appendChild(ansBtn);
+    });
+ // add them to html
+
+
+
 }
 
-// function selectAnswer(){
-
-// }
+function selectAnswer(e){
+    console.log('You clicked an answer');
+    const userChoice = e.target;
+    const correctChoice = userChoice.dataset.correct;
+    if(correctChoice){
+        console.log('Yes!');
+        userScores++;
+        console.log('Score:' , userScores);    
+    }else{
+        userScores--;
+        console.log('Score:' , userScores);  
+    }
+    
+}
 
 // function nextQuestion() {
 
@@ -54,9 +83,9 @@ const questionArray = [
       {
         question: 'What is the best animal?',
         answers: [
-          { text: 'Cat', correct: true },
-          { text: 'Dog', correct: true },
-          { text: 'Rats', correct: true },
+          { text: 'Cat', correct: false },
+          { text: 'Dog', correct: false },
+          { text: 'Rats', correct: false },
           { text: 'All animals are the best', correct: true }
         ]
       },
