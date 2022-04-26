@@ -14,9 +14,18 @@ body {
 
 .main {
     background-color: var(--backgroundColorCard);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
 }
 
-.questionOptions {
+.questionContainer {
     background-color: var(--backgroundColorQuestion);
 }
 
+
+.hide{
+    display: none;
+}
