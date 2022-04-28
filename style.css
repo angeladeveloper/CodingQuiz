@@ -1,31 +1,44 @@
 :root {
-    --backgroundColorMain: #7E846B;
-    --backgroundColorCard: #cad4cf;
-    --backgroundColorQuestion: #3D3626;
-    --textColorDark: #100D04;
-    --textColorLight: #D0DDD7;
-    --lightAccentColor: #A5AE9E;
-
+  --colorMain: #4e3a87;
+  --colorSecondary: #9f86c0;
+  --colorLight: #f3cfe3;
+  --colorDark: #231942;
+  --textColorDark: #100d04;
+  --textColorLight: #d0ddd7;
+  --lightAccentColor: #a5ae9e;
+  --backgroundGradientMain: linear-gradient(
+    315deg,
+    hsla(255, 45%, 18%, 1) 0%,
+    hsla(255, 41%, 29%, 1) 54%,
+    hsla(256, 35%, 46%, 1) 100%
+  );
 }
 
 body {
-    background-color: var(--backgroundColorMain);
+  background-color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10rem;
+}
+
+header {
+  background-color: var(--colorLight);
 }
 
 .main {
-    background-color: var(--backgroundColorCard);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
+  background-color: var(--colorLight);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1.5rem;
 }
 
 .questionContainer {
-    background-color: var(--backgroundColorQuestion);
+  background-color: var(--colorSecondary);
 }
 
-
-.hide{
-    display: none;
+.hide {
+  display: none;
 }
