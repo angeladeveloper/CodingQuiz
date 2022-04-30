@@ -12,6 +12,13 @@
     hsla(255, 41%, 29%, 1) 54%,
     hsla(256, 35%, 46%, 1) 100%
   );
+  --borderRadius: 10px;
+  --backgroundGradientLight: linear-gradient(
+    225deg,
+    hsla(319, 36%, 81%, 1) 10%,
+    hsla(266, 32%, 64%, 1) 41%,
+    hsla(274, 50%, 35%, 1) 85%
+  );
 }
 
 body {
@@ -21,6 +28,7 @@ body {
   align-items: center;
   padding: 10rem;
   margin: 0 auto;
+  font-family: "Cabin", sans-serif;
 }
 
 header {
@@ -37,6 +45,7 @@ header {
   width: 50vw;
   min-height: 50vh;
   overflow: hidden;
+  border-radius: var(--borderRadius);
 }
 
 .questionContainer {
@@ -44,6 +53,7 @@ header {
   position: relative;
   top: -4rem;
   padding: 1.8rem 2rem;
+  border-radius: var(--borderRadius);
 }
 
 .hide {
@@ -51,5 +61,17 @@ header {
 }
 
 .btn {
+  border: none;
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  background-image: var(--backgroundGradientLight);
   padding: 1rem 2rem;
+  border-radius: var(--borderRadius);
+  font-family: "Cabin", sans-serif;
+  border: #231942 solid 1px;
 }
