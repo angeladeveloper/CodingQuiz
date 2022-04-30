@@ -5,11 +5,21 @@ const nextBtn = document.getElementById("nextBtn")
 const answerElement = document.getElementById('answerBtns');
 const userScoreElement = document.getElementById('userScore');
 const timeLeftElement = document.getElementById('timeLeft');
+const controlsElement = document.getElementById('controls');
+
 let userScores = 0;
 let userTimer = 0;
+var highScore = localStorage.getItem('highScore');
+// let userInput = () => {
+//   userInitials = document.querySelector('userInput').value
+//   return;
+// };
+
 let currentIndex, shuffledQuestions;
 let ansBtn;
+let addScoreBtn;
 let myInterval;
+
 
 //event listener to start game. 
 startBtn.addEventListener('click', startGame);
@@ -125,9 +135,14 @@ function selectAnswer(e) {
     console.log('huh');
     nextBtn.classList.remove('hide');
   } else {
-    startBtn.classList.remove('hide');
-    startBtn.innerText = "Add Scores"
-    startBtn.addEventListener('click', endGame);
+    // startBtn.classList.remove('hide');
+    // startBtn.addEventListener('click', endGame);
+    nextBtn.classList.add('hide');
+    addScoreBtn = document.createElement('button');
+    addScoreBtn.classList.add('btn');
+    addScoreBtn.innerText = "Add Scores"
+    addScoreBtn.addEventListener('click', endGame)
+    controlsElement.appendChild(addScoreBtn);
   }
 }
 
@@ -144,13 +159,53 @@ function nextQuestion() {
 
 function endGame() {
   clearInterval(myInterval);
-  startBtn.addEventListener('click', startGame);
+  highScore = userScores;
+  highScore = highScore + userTimer;
+  console.log('Current Score', highScore);
+  setScores();
+  questionElement.innerText = "Add your scores to the leaderboard!"
+
+
+
 }
 function clearQuestion() {
 
   while (answerElement.firstChild) {
     answerElement.removeChild(answerElement.firstChild);
   }
+}
+
+// //setting the current score = to HS 
+// highScore = userScores
+
+// highScore = highScore + userTimer
+
+
+
+function setScores() {
+  console.log('Current Highscore', highScore);
+  // clear everything 
+  clearQuestion();
+  userInput = document.createElement('input');
+  userInput.setAttribute('type', 'text');
+  userInput.setAttribute('placeholder', 'Add Initials');
+  userInput.setAttribute('id', 'userInput');
+  userInput.classList.add('userInput');
+  answerElement.appendChild(userInput);
+
+  let userInitials = document.getElementById('userInput').value
+  console.log('UserInput:', userInput);
+
+  console.log(userInput);
+  let userHighscore = userScores + " " + userInitials;
+  console.log('HighScore:', userHighscore);
+  addScoreBtn.innerText = 'Leaderboards'
+  addScoreBtn.setAttribute('type', 'submit');
+  console.log(userInput);
+}
+
+function addScoresToLocal() {
+
 }
 
 
