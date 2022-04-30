@@ -20,6 +20,7 @@ body {
   justify-content: center;
   align-items: center;
   padding: 10rem;
+  margin: 0 auto;
 }
 
 header {
@@ -32,13 +33,23 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2rem 1.5rem;
+  padding: 1rem 1.5rem;
+  width: 50vw;
+  min-height: 50vh;
+  overflow: hidden;
 }
 
 .questionContainer {
   background-color: var(--colorSecondary);
+  position: relative;
+  top: -4rem;
+  padding: 1.8rem 2rem;
 }
 
 .hide {
   display: none;
+}
+
+.btn {
+  padding: 1rem 2rem;
 }

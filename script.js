@@ -6,37 +6,61 @@ const answerElement = document.getElementById('answerBtns');
 const userScoreElement = document.getElementById('userScore');
 const timeLeftElement = document.getElementById('timeLeft');
 let userScores = 0;
-let userTimer = 10;
+let userTimer = 0;
 let currentIndex, shuffledQuestions;
+let ansBtn;
+let myInterval;
+
 //event listener to start game. 
 startBtn.addEventListener('click', startGame);
 
 
+function startTimer() {
+  myInterval = setInterval(() => {
+    userTimer--;
+    console.log('Time Left:', userTimer);
+    console.log('Interval', myInterval);
+    console.log('Current Index:', currentIndex);
 
 
-// const myInterval = setInterval(() => {
-//   userTimer--;
-//   console.log('Time Left:', userTimer);
-// }, 1200);
+    timeLeftElement.innerText = userTimer;
+
+    if (userTimer === 0 || questionArray.length < currentIndex + 1) {
+      console.log('End Game', userTimer);
+
+      clearInterval(myInterval);
+
+
+    }
+  }, 1000);
+}
+
+
+
 
 
 function startGame() {
   console.log('Start Game');
+  startTimer();
+  clearQuestion();
+  userTimer = userTimer + 10
+  // myInterval = setInterval(() => {
+  //   userTimer--;
+  //   console.log('Time Left:', userTimer);
+  //   console.log('Interval', myInterval);
 
-  const myInterval = setInterval(() => {
-    userTimer--;
-    console.log('Time Left:', userTimer);
-    timeLeftElement.innerText = userTimer;
+  //   timeLeftElement.innerText = userTimer;
 
-    if (userTimer === 0) {
-      console.log('End Game', userTimer);
-      clearInterval(myInterval);
-
-    }
-  }, 1200);
+  //   if (userTimer === 0) {
+  //     console.log('End Game', userTimer);
+  //     clearInterval(myInterval);
 
 
-  // I am shuffleing the questions
+  //   }
+  // }, 1000);
+
+
+  // I am shuffleing the question object into an array
   shuffledQuestions = questionArray.sort(() => Math.random() - .5);
   //https://www.w3schools.com/js/js_array_sort.asp sort method 
   console.log('Shuffled questions;', shuffledQuestions);//shuffle the questions.   
@@ -57,8 +81,9 @@ function showQuestion(question) {
   // let currentAnswers = Array.from(answerBtns);
   question.answers.forEach(answer => { // creating a button for each answer
     console.log('All answers', answer);
-    const ansBtn = document.createElement('button');
+    ansBtn = document.createElement('button');
     ansBtn.innerText = answer.text// changed text of button 
+    ansBtn.classList.add('btn');
 
     //I need to know what questions are right. 
     if (answer.correct) { // if the answer for the current looping question is true, add the correct data attribute. 
@@ -89,29 +114,43 @@ function selectAnswer(e) {
     // i need to display the user score   
   } else {
     userScores--;
+    userTimer--;
     // subtract time here 
     console.log('Score:', userScores);
   }
   userScoreElement.innerHTML = userScores;
   nextBtn.classList.remove('hide');
   currentIndex++;
+  if (shuffledQuestions.length > currentIndex) {
+    console.log('huh');
+    nextBtn.classList.remove('hide');
+  } else {
+    startBtn.classList.remove('hide');
+    startBtn.innerText = "Add Scores"
+    startBtn.addEventListener('click', endGame);
+  }
 }
 
 nextBtn.addEventListener('click', nextQuestion)
 function nextQuestion() {
   // I need to clear the old question
   console.log('Current Question:', currentIndex);
+  console.log('length of array', questionArray.length);
+  clearQuestion();
 
   showQuestion(shuffledQuestions[currentIndex]);
-  if (currentIndex === shuffledQuestions.length + 1) {
-    console.log('huh');
 
-  }
 }
 
-
+function endGame() {
+  clearInterval(myInterval);
+  startBtn.addEventListener('click', startGame);
+}
 function clearQuestion() {
 
+  while (answerElement.firstChild) {
+    answerElement.removeChild(answerElement.firstChild);
+  }
 }
 
 
