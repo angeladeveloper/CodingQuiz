@@ -19,6 +19,7 @@ let currentIndex, shuffledQuestions;
 let ansBtn;
 let addScoreBtn;
 let myInterval;
+let userHighscore;
 
 
 //event listener to start game. 
@@ -54,22 +55,6 @@ function startGame() {
   startTimer();
   clearQuestion();
   userTimer = userTimer + 10
-  // myInterval = setInterval(() => {
-  //   userTimer--;
-  //   console.log('Time Left:', userTimer);
-  //   console.log('Interval', myInterval);
-
-  //   timeLeftElement.innerText = userTimer;
-
-  //   if (userTimer === 0) {
-  //     console.log('End Game', userTimer);
-  //     clearInterval(myInterval);
-
-
-  //   }
-  // }, 1000);
-
-
   // I am shuffleing the question object into an array
   shuffledQuestions = questionArray.sort(() => Math.random() - .5);
   //https://www.w3schools.com/js/js_array_sort.asp sort method 
@@ -146,6 +131,8 @@ function selectAnswer(e) {
   }
 }
 
+
+
 nextBtn.addEventListener('click', nextQuestion)
 function nextQuestion() {
   // I need to clear the old question
@@ -183,28 +170,37 @@ function clearQuestion() {
 
 
 function setScores() {
+
   console.log('Current Highscore', highScore);
   // clear everything 
   clearQuestion();
+  userForm = document.createElement('form');
+  userForm.classList.add('form');
+  answerElement.appendChild(userForm);
+
+
+
   userInput = document.createElement('input');
   userInput.setAttribute('type', 'text');
   userInput.setAttribute('placeholder', 'Add Initials');
   userInput.setAttribute('id', 'userInput');
   userInput.classList.add('userInput');
-  answerElement.appendChild(userInput);
+  userForm.appendChild(userInput);
 
-  let userInitials = document.getElementById('userInput').value
   console.log('UserInput:', userInput);
-
-  console.log(userInput);
-  let userHighscore = userScores + " " + userInitials;
   console.log('HighScore:', userHighscore);
+
   addScoreBtn.innerText = 'Leaderboards'
   addScoreBtn.setAttribute('type', 'submit');
-  console.log(userInput);
+  addScoreBtn.addEventListener('click', addScoresToLocal);
+
 }
 
+addScoreBtn.addEventListener('click', addScoresToLocal);
+
 function addScoresToLocal() {
+  const userInitials = userInput.value
+  console.log('userInitials:', userInitials);
 
 }
 
